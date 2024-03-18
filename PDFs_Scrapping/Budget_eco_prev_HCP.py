@@ -39,7 +39,6 @@ class Budget_economique_prev :
         print(file_path)
         while not os.path.exists(file_path):  # Wait until the file is downloaded
             time.sleep(1)
-            print('slm')
 
         print("Download Completed Successfully")
         driver.quit()

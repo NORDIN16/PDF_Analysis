@@ -80,27 +80,6 @@ class clean_text :
         cleaned_text = re.sub(r"[\n']", " ", text)
         cleaned_text = re.sub(r"\s+", " ", cleaned_text)  # Supprimer les espaces en double
         return cleaned_text.strip()
-    
-class convert_pdf_page_to_image :
-    def convert_pdf_page_to_image(pdf_path, page_number):
-        # Ouvre le document PDF
-        pdf_document = fitz.open(pdf_path)
-        
-        # Vérifie si le numéro de page est valide
-        if page_number < 0 or page_number >= len(pdf_document):
-            print("Numéro de page invalide.")
-            return None
-        
-        # Sélectionne la page spécifiée
-        page = pdf_document[page_number]
-        
-        # Convertit la page en une image
-        pix = page.get_pixmap()
-        
-        # Crée un objet Image à partir des données de l'image
-        image = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
-        
-        return image
 
 class extract_text_with_langchain_pdf :
     def extract_text_with_langchain_pdf(pdf_file):
