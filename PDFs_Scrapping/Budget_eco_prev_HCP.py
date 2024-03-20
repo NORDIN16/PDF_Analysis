@@ -7,10 +7,10 @@ from selenium.webdriver.common.by import By
 import time
 
 class Budget_economique_prev :
-    def Budget_economique_previsionnel(year):
+    def Budget_economique_previsionnel(year, directory):
         options = webdriver.ChromeOptions()
         options.add_experimental_option('prefs', {
-            "download.default_directory": "D:\PFE\PDF_Analysis",
+            "download.default_directory": directory,
             "download.prompt_for_download": False,
             "plugins.always_open_pdf_externally": True})
         options.add_argument("--headless")  # Execute in headless mode
@@ -33,7 +33,7 @@ class Budget_economique_prev :
                 print("FILE FOUND")
                 break  # Exit loop once the file is found
 
-        download_path = "D:\PFE\PDF_Analysis"
+        download_path = directory
         file_name = f"Budget économique prévisionnel {year} _ La situation économique en {year-1} et ses perspectives en {year} (version français).pdf"
         file_path = os.path.join(download_path, file_name)
         print(file_path)

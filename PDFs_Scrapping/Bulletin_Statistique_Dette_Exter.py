@@ -5,9 +5,10 @@ from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 import time
+import urllib.parse
 
-class Rapport_Economique_Financier :
-    def Rapport_Eco_Fin(directory):
+class Bulletin_SDE :
+    def Bulletin_Statistique_Dette_Ex(year, month, directory):
         options = webdriver.ChromeOptions()
         options.add_experimental_option('prefs', {
             "download.default_directory": directory,
@@ -18,7 +19,7 @@ class Rapport_Economique_Financier :
         # Set up ChromeDriver
         driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=options)
 
-        URL = 'https://www.finances.gov.ma/fr/vous-orientez/Pages/plf2023.aspx'
+        URL = 'https://www.finances.gov.ma/fr/Pages/publications-dette.Aspx?fiche=2'
         driver.get(URL)
 
         driver.maximize_window()
@@ -27,15 +28,16 @@ class Rapport_Economique_Financier :
         a_tags = driver.find_elements(By.XPATH, "//a")
 
         for a in a_tags:
-            search_text = f"Rapport économique et financier"
+            search_text = f"Bulletin statistique de la dette extérieure du trésor -{month} {year}-"
             if search_text.lower() in a.text.lower():
                 a.click()
-                href = a.get_attribute('href')
+                href = a.get_attribute("href")
                 print("FILE FOUND")
                 break  # Exit loop once the file is found
 
         download_path = directory
         file_name = href.split("/")[-1]
+        file_name = urllib.parse.unquote(file_name)
         file_path = os.path.join(download_path, file_name)
         print(file_path)
         while not os.path.exists(file_path):  # Wait until the file is downloaded
@@ -45,4 +47,4 @@ class Rapport_Economique_Financier :
         driver.quit()
 
 if __name__ == "__main__":
-    Rapport_Economique_Financier.Rapport_Eco_Fin()
+    Bulletin_SDE.Bulletin_Statistique_Dette_Ex(year="2023", month="Juin")

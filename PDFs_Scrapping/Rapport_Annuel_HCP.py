@@ -7,10 +7,10 @@ from selenium.webdriver.common.by import By
 import time
 
 class Chomage :
-    def Rapport_Annuel_HCP(year):
+    def Rapport_Annuel_HCP(year, directory):
         options = webdriver.ChromeOptions()
         options.add_experimental_option('prefs', {
-            "download.default_directory": "D:\PFE\PDF_Analysis",
+            "download.default_directory": directory,
             "download.prompt_for_download": False,
             "plugins.always_open_pdf_externally": True})
         options.add_argument("--headless")  # Execute in headless mode
@@ -34,7 +34,7 @@ class Chomage :
                 print("FILE FOUND")
                 break  # Exit loop once the file is found
 
-        download_path = "D:\PFE\PDF_Analysis"
+        download_path = directory
         #file_name = f"Activité, emploi et chômage, résultats annuels {year}.pdf"
         file_path = os.path.join(download_path, file_name)
         print(file_path)

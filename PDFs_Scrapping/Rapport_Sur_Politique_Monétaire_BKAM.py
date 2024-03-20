@@ -7,10 +7,10 @@ from selenium.webdriver.common.by import By
 import time
 
 class Rapport_Politique_Monétaire :
-    def Rapport_PM(year):
+    def Rapport_PM(year, directory):
         options = webdriver.ChromeOptions()
         options.add_experimental_option('prefs', {
-            "download.default_directory": "D:\PFE\PDF_Analysis",
+            "download.default_directory": directory,
             "download.prompt_for_download": False,
             "plugins.always_open_pdf_externally": True})
         options.add_argument("--headless")  # Execute in headless mode
@@ -34,7 +34,7 @@ class Rapport_Politique_Monétaire :
                 print("FILE FOUND")
                 break  # Exit loop once the file is found
 
-        download_path = "D:\PFE\PDF_Analysis"
+        download_path = directory
         file_name = href.split("/")[-1]
         file_path = os.path.join(download_path, file_name)
         print(file_path)
