@@ -6,6 +6,7 @@ from Budget_eco_prev_HCP import Budget_economique_prev
 from Rapport_Annuel_HCP import Chomage
 from Rapport_economique_financier_MFinance import Rapport_Economique_Financier
 from main_analysis import main_text
+from Bulletin_Statistique_Dette_Exter import Bulletin_SDE
 
 import os
 import shutil
@@ -31,6 +32,7 @@ def main():
         Budget_economique_prev.Budget_economique_previsionnel(year=2024, directory=temp_directory)
         Chomage.Rapport_Annuel_HCP(year=2022, directory=temp_directory)
         Rapport_Economique_Financier.Rapport_Eco_Fin(directory=temp_directory)
+        Bulletin_SDE.Bulletin_Statistique_Dette_Ex(month="Juin", year=2023, directory=temp_directory)
 
         print("Extraction du texte terminée")
         main_text.main_text(directory=temp_directory)
